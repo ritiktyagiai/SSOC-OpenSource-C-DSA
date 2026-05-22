@@ -47,6 +47,9 @@ clear_buffer:
         ; // clears buffer for next attempt
     if (c == EOF)
     { // if EOF is encountered
+
+        clearerr(stdin);
+        fflush(stdin);
         printf("input ended unexpectedly\n");
         return 0;
     }

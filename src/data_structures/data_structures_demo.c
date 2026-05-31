@@ -96,8 +96,9 @@ void data_structures_demo(void)
                         safe_input_int(&non_linear_ds_choice,
                                        "\nenter 1 for binary search tree demo"
                                        "\nenter 2 for threaded binary tree demo"
+                                       "\nenter 3 for priority queue (array implementation of binary heap) demo"
                                        "\nenter choice: ",
-                                       1, 2);
+                                       1, 3);
                     if (non_linear_ds_status == INPUT_EXIT_SIGNAL)
                         break;
                     if (non_linear_ds_status == 0)
@@ -109,6 +110,10 @@ void data_structures_demo(void)
                     if (non_linear_ds_choice == 2)
                     {
                         TBT_demo();
+                    }
+                    if(non_linear_ds_choice == 3)
+                    {
+                        priority_queue_demo();
                     }
                 }
                 break;

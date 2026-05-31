@@ -1,7 +1,7 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 #define INPUT_EXIT_SIGNAL -111
-#define HEAP_SIZE 100
+#define HEAP_CAPACITY 100
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -97,8 +97,23 @@ void TBT_demo(void);
 #endif
 
 // For Priority Queue
+typedef enum
+{
+    MIN_HEAP = 0,
+    MAX_HEAP = 1
+} HeapType;
+
 typedef struct priority_queue
 {
     int size;
-    int heap[HEAP_SIZE];
+    HeapType heapType;
+    int heap[HEAP_CAPACITY];
 } priority_queue;
+
+priority_queue* pq_init(HeapType heapType);
+int insert(priority_queue* pq , int val);
+bool extractTop(priority_queue* pq, int* result);
+bool peek(priority_queue* pq, int* result);
+void destroy_pq(priority_queue* pq);
+void display_heap(priority_queue *pq);
+void priority_queue_demo(void);

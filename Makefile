@@ -9,7 +9,8 @@ CFLAGS = -Wall -Wextra -Werror -std=c11 -g \
 	-Isrc/advanced_sorting_algorithms \
 	-Isrc/searching_algorithms \
 	-Isrc/graph_traversals \
-	-Isrc/hashing
+	-Isrc/hashing \
+	-Isrc/utils
 
 SRCS = \
 	src/data_structures/*.c \
@@ -18,7 +19,8 @@ SRCS = \
 	src/advanced_sorting_algorithms/*.c \
 	src/searching_algorithms/*.c \
 	src/graph_traversals/*.c \
-	src/hashing/*.c
+	src/hashing/*.c \
+	src/utils/*.c
 
 ifeq ($(OS),Windows_NT)
 	RM = cmd /c del
@@ -54,17 +56,17 @@ valgrind:
 
 CIRC_QUEUE_TEST_SRC = \
 	src/data_structures/circular_queue.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	tests/test_circ_queue.c
 
 BST_TEST_SRC = \
 	src/data_structures/bst.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	tests/test_bst.c
 
 SEARCH_TEST_SRC = \
 	src/searching_algorithms/linear_search.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	src/searching_algorithms/binary_search.c \
 	src/sorting_algorithms_n2/selection_sort.c \
 	src/data_structures/array.c \
@@ -72,39 +74,39 @@ SEARCH_TEST_SRC = \
 
 HASH_FUNCTION_TEST_SRC = \
 	src/hashing/linear_probing.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	src/data_structures/array.c \
 	tests/test_hash_function.c
 
 SLL_TEST_SRC = \
     src/data_structures/sll.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
     tests/test_sll.c
 
 DLL_TEST_SRC = \
 	src/data_structures/dll.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	tests/test_dll.c
 
 ARRAY_TEST_SRC = \
 	src/data_structures/array.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	tests/test_array.c
 
 STACK_TEST_SRC = \
 	src/expression_evaluation/stack.c \
 	src/data_structures/sll.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	tests/test_stack.c
 
 TBT_TEST_SRC = \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	src/data_structures/tbt.c \
 	tests/test_tbt.c
   
 PRIORITY_QUEUE_SRC = \
 	src/data_structures/array.c \
-	src/data_structures/safe_input_int.c \
+	src/utils/safe_input_int.c \
 	src/data_structures/priority_queue.c \
 	tests/test_priority_queue.c 
 

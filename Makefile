@@ -224,7 +224,7 @@ TEST_BINS = test_circ_queue test_bst test_search test_hash_func \
             test_sll test_dll test_array test_stack test_tbt \
             test_priority_queue test_scll test_simple_queue \
             test_deque test_astar test_avl test_floyd_warshall \
-            test_greedy_bfs test_kruskal
+            test_greedy_bfs test_kruskal test_sorting_n2 test_advanced_sorting
 
 test_kruskal:
 	$(CC) $(CFLAGS) $(KRUSKAL_TEST_SRC) -o test_kruskal$(EXE)
@@ -235,3 +235,30 @@ test: $(TEST_BINS)
 .PHONY: $(TARGET) $(TEST_BINS)
 
 
+
+# ---- sorting algorithm unit tests (issue #92) ----
+SORTING_N2_TEST_SRC = \
+	src/sorting_algorithms_n2/bubble_sort.c \
+	src/sorting_algorithms_n2/insertion_sort.c \
+	src/sorting_algorithms_n2/selection_sort.c \
+	src/data_structures/array.c \
+	src/utils/safe_input_int.c \
+	tests/test_sorting_n2.c
+
+ADVANCED_SORTING_TEST_SRC = \
+	src/advanced_sorting_algorithms/quick_sort.c \
+	src/advanced_sorting_algorithms/merge_sort.c \
+	src/advanced_sorting_algorithms/heap_sort.c \
+	src/advanced_sorting_algorithms/radix_sort.c \
+	src/data_structures/priority_queue.c \
+	src/data_structures/array.c \
+	src/utils/safe_input_int.c \
+	tests/test_advanced_sorting.c
+
+test_sorting_n2:
+	$(CC) $(CFLAGS) $(SORTING_N2_TEST_SRC) -o test_sorting_n2$(EXE)
+	./test_sorting_n2$(EXE)
+
+test_advanced_sorting:
+	$(CC) $(CFLAGS) $(ADVANCED_SORTING_TEST_SRC) -o test_advanced_sorting$(EXE)
+	./test_advanced_sorting$(EXE)

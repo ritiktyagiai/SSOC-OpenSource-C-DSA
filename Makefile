@@ -168,16 +168,6 @@ ADVANCED_SORTING_TEST_SRC = \
 	src/utils/history_logger.c \
 	tests/test_advanced_sorting.c
 
-SHELL_SORT_TEST_SRC = \
-	src/sorting_algorithms_n2/shell_sort.c \
-	src/data_structures/array.c \
-	src/utils/safe_input_int.c \
-	tests/test_shell_sort.c
-FLOYD_WARSHALL_TEST_SRC = \
-	src/graph_traversals/floyd_warshall.c \
-	src/utils/safe_input_int.c \
-	tests/test_floyd_warshall.c
-
 test_tbt:
 	$(CC) $(CFLAGS) $(TBT_TEST_SRC) -o test_tbt$(EXE)
 	./test_tbt$(EXE)
@@ -247,13 +237,18 @@ test_history_logger:
 	$(CC) $(CFLAGS) $(HISTORY_LOGGER_TEST_SRC) -o test_history_logger$(EXE)
 	./test_history_logger$(EXE)
 
-test_floyd_warshall:
-	$(CC) $(CFLAGS) $(FLOYD_WARSHALL_TEST_SRC) -o test_floyd_warshall$(EXE)
-	./test_floyd_warshall$(EXE)
+TEST_BINS = test_circ_queue test_bst test_search test_hash_func \
+            test_sll test_dll test_array test_stack test_tbt \
+            test_priority_queue test_scll test_simple_queue \
+            test_deque test_astar test_avl \
+            test_greedy_bfs test_sorting_n2 test_advanced_sorting \
+            test_history_logger
 
-test_shell_sort:
-	$(CC) $(CFLAGS) $(SHELL_SORT_TEST_SRC) -o test_shell_sort$(EXE)
-	./test_shell_sort$(EXE)
+test: $(TEST_BINS)
+
+.PHONY: $(TARGET) $(TEST_BINS)
+
+
 
 # ---- sorting algorithm unit tests (issue #92) ----
 SORTING_N2_TEST_SRC = \
@@ -275,7 +270,6 @@ ADVANCED_SORTING_TEST_SRC = \
 	src/utils/safe_input_int.c \
 	src/utils/history_logger.c \
 	tests/test_advanced_sorting.c
-
 test_sorting_n2:
 	$(CC) $(CFLAGS) $(SORTING_N2_TEST_SRC) -o test_sorting_n2$(EXE)
 	./test_sorting_n2$(EXE)
@@ -284,14 +278,15 @@ test_advanced_sorting:
 	$(CC) $(CFLAGS) $(ADVANCED_SORTING_TEST_SRC) -o test_advanced_sorting$(EXE)
 	./test_advanced_sorting$(EXE)
 
+
+
 TEST_BINS = test_circ_queue test_bst test_search test_hash_func \
             test_sll test_dll test_array test_stack test_tbt \
             test_priority_queue test_scll test_simple_queue \
             test_deque test_astar test_avl \
-            test_greedy_bfs test_sorting_n2 test_advanced_sorting \
-            test_history_logger test_floyd_warshall test_shell_sort
+            test_greedy_bfs test_sorting_n2 test_advanced_sorting
+
 
 test: $(TEST_BINS)
 
 .PHONY: $(TARGET) $(TEST_BINS)
-

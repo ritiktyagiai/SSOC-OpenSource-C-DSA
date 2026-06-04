@@ -10,7 +10,7 @@ void graph_traversals_demo(void)
         int graph_traversal_status = safe_input_int(
     &graph_traversal_choice,
     "\nenter 1 for bfs, 2 for dfs, 3 for dijkstra, 4 for astar, "
-    "5 for floyd-warshall, 6 for greedy-bfs and 7 for kruskal : ",
+    "5 for greedy-bfs : ",
     1, 7);
 
         if (graph_traversal_status == INPUT_EXIT_SIGNAL)
@@ -39,15 +39,9 @@ void graph_traversals_demo(void)
                 astar_demo();
                 break;
             case 5:
-                floyd_warshall_demo();
-                break;
-            case 6:
                   greedy_best_first_search_demo();
                  break;
 
-            case 7:
-                  kruskal_demo();
-                  break;
         }
     }
 }

@@ -1,0 +1,6 @@
+# macOS debug files
+*.dSYM/
+
+# compiled executables
+dsa
+test_trie

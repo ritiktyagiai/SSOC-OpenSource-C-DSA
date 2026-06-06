@@ -50,7 +50,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)$(EXE)
 
 ifeq ($(OS),Windows_NT)
-MKDIR_P = if not exist "$(1)" mkdir "$(1)"
+MKDIR_P = cmd /c if not exist "$(subst /,\,$(1))" mkdir "$(subst /,\,$(1))"
 else
 MKDIR_P = mkdir -p "$(1)"
 endif
@@ -82,148 +82,148 @@ valgrind:
 test_tbt: $(TEST_DIR)/test_tbt$(EXE)
 	$(TEST_DIR)/test_tbt$(EXE)
 
-$(TEST_DIR)/test_tbt$(EXE): $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/data_structures/tbt.o tests/test_tbt.c
-	@mkdir -p $(TEST_DIR)
+$(TEST_DIR)/test_tbt$(EXE): $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/trees/tbt.o tests/test_tbt.c
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_circ_queue: $(TEST_DIR)/test_circ_queue$(EXE)
 	$(TEST_DIR)/test_circ_queue$(EXE)
 
 $(TEST_DIR)/test_circ_queue$(EXE): $(OBJ_DIR)/src/data_structures/circular_queue.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_circ_queue.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_bst: $(TEST_DIR)/test_bst$(EXE)
 	$(TEST_DIR)/test_bst$(EXE)
 
-$(TEST_DIR)/test_bst$(EXE): $(OBJ_DIR)/src/data_structures/bst.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_bst.c
-	@mkdir -p $(TEST_DIR)
+$(TEST_DIR)/test_bst$(EXE): $(OBJ_DIR)/src/trees/bst.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_bst.c
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_search: $(TEST_DIR)/test_search$(EXE)
 	$(TEST_DIR)/test_search$(EXE)
 
 $(TEST_DIR)/test_search$(EXE): $(OBJ_DIR)/src/searching_algorithms/linear_search.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/utils/history_logger.o $(OBJ_DIR)/src/searching_algorithms/binary_search.o $(OBJ_DIR)/src/sorting_algorithms_n2/selection_sort.o $(OBJ_DIR)/src/data_structures/array.o tests/test_search.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_hash_func: $(TEST_DIR)/test_hash_func$(EXE)
 	$(TEST_DIR)/test_hash_func$(EXE)
 
 $(TEST_DIR)/test_hash_func$(EXE): $(OBJ_DIR)/src/hashing/linear_probing.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/utils/history_logger.o $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/searching_algorithms/linear_search.o tests/test_hash_function.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_sll: $(TEST_DIR)/test_sll$(EXE)
 	$(TEST_DIR)/test_sll$(EXE)
 
 $(TEST_DIR)/test_sll$(EXE): $(OBJ_DIR)/src/data_structures/sll.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_sll.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_dll: $(TEST_DIR)/test_dll$(EXE)
 	$(TEST_DIR)/test_dll$(EXE)
 
 $(TEST_DIR)/test_dll$(EXE): $(OBJ_DIR)/src/data_structures/dll.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_dll.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_array: $(TEST_DIR)/test_array$(EXE)
 	$(TEST_DIR)/test_array$(EXE)
 
 $(TEST_DIR)/test_array$(EXE): $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_array.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_stack: $(TEST_DIR)/test_stack$(EXE)
 	$(TEST_DIR)/test_stack$(EXE)
 
 $(TEST_DIR)/test_stack$(EXE): $(OBJ_DIR)/src/expression_evaluation/stack.o $(OBJ_DIR)/src/data_structures/sll.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_stack.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_priority_queue: $(TEST_DIR)/test_priority_queue$(EXE)
 	$(TEST_DIR)/test_priority_queue$(EXE)
 
 $(TEST_DIR)/test_priority_queue$(EXE): $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/data_structures/priority_queue.o tests/test_priority_queue.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_scll: $(TEST_DIR)/test_scll$(EXE)
 	$(TEST_DIR)/test_scll$(EXE)
 
 $(TEST_DIR)/test_scll$(EXE): $(OBJ_DIR)/src/data_structures/scll.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_scll.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_simple_queue: $(TEST_DIR)/test_simple_queue$(EXE)
 	$(TEST_DIR)/test_simple_queue$(EXE)
 
 $(TEST_DIR)/test_simple_queue$(EXE): $(OBJ_DIR)/src/data_structures/simple_queue.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_simple_queue.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_deque: $(TEST_DIR)/test_deque$(EXE)
 	$(TEST_DIR)/test_deque$(EXE)
 
 $(TEST_DIR)/test_deque$(EXE): $(OBJ_DIR)/src/data_structures/deque.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_deque.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_astar: $(TEST_DIR)/test_astar$(EXE)
 	$(TEST_DIR)/test_astar$(EXE)
 
 $(TEST_DIR)/test_astar$(EXE): $(OBJ_DIR)/src/graph_traversals/astar.o $(OBJ_DIR)/src/graph_traversals/dijkstra.o $(OBJ_DIR)/src/utils/graph_io.o $(OBJ_DIR)/src/graph_traversals/bfs.o $(OBJ_DIR)/src/data_structures/circular_queue.o $(OBJ_DIR)/src/data_structures/sll.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_astar.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_avl: $(TEST_DIR)/test_avl$(EXE)
 	$(TEST_DIR)/test_avl$(EXE)
 
-$(TEST_DIR)/test_avl$(EXE): $(OBJ_DIR)/src/data_structures/avl.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_avl.c
-	@mkdir -p $(TEST_DIR)
+$(TEST_DIR)/test_avl$(EXE): $(OBJ_DIR)/src/trees/avl.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_avl.c
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_trie: $(TEST_DIR)/test_trie$(EXE)
 	$(TEST_DIR)/test_trie$(EXE)
 
-$(TEST_DIR)/test_trie$(EXE): $(OBJ_DIR)/src/data_structures/trie.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_trie.c
-	@mkdir -p $(TEST_DIR)
+$(TEST_DIR)/test_trie$(EXE): $(OBJ_DIR)/src/trees/trie.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_trie.c
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_greedy_bfs: $(TEST_DIR)/test_greedy_bfs$(EXE)
 	$(TEST_DIR)/test_greedy_bfs$(EXE)
 
 $(TEST_DIR)/test_greedy_bfs$(EXE): $(OBJ_DIR)/src/graph_traversals/greedy_best_first_search.o $(OBJ_DIR)/src/graph_traversals/dijkstra.o $(OBJ_DIR)/src/utils/graph_io.o $(OBJ_DIR)/src/graph_traversals/bfs.o $(OBJ_DIR)/src/data_structures/circular_queue.o $(OBJ_DIR)/src/data_structures/sll.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_greedy_best_first_search.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_history_logger: $(TEST_DIR)/test_history_logger$(EXE)
 	$(TEST_DIR)/test_history_logger$(EXE)
 
 $(TEST_DIR)/test_history_logger$(EXE): $(OBJ_DIR)/src/utils/history_logger.o tests/test_history_logger.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_shell_sort: $(TEST_DIR)/test_shell_sort$(EXE)
 	$(TEST_DIR)/test_shell_sort$(EXE)
 
 $(TEST_DIR)/test_shell_sort$(EXE): $(OBJ_DIR)/src/sorting_algorithms_n2/shell_sort.o $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/utils/history_logger.o tests/test_shell_sort.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_sorting_n2: $(TEST_DIR)/test_sorting_n2$(EXE)
 	$(TEST_DIR)/test_sorting_n2$(EXE)
 
 $(TEST_DIR)/test_sorting_n2$(EXE): $(OBJ_DIR)/src/sorting_algorithms_n2/bubble_sort.o $(OBJ_DIR)/src/sorting_algorithms_n2/insertion_sort.o $(OBJ_DIR)/src/sorting_algorithms_n2/selection_sort.o $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/utils/history_logger.o tests/test_sorting_n2.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 test_advanced_sorting: $(TEST_DIR)/test_advanced_sorting$(EXE)
 	$(TEST_DIR)/test_advanced_sorting$(EXE)
 
 $(TEST_DIR)/test_advanced_sorting$(EXE): $(OBJ_DIR)/src/advanced_sorting_algorithms/quick_sort.o $(OBJ_DIR)/src/advanced_sorting_algorithms/merge_sort.o $(OBJ_DIR)/src/advanced_sorting_algorithms/heap_sort.o $(OBJ_DIR)/src/advanced_sorting_algorithms/radix_sort.o $(OBJ_DIR)/src/data_structures/priority_queue.o $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/utils/history_logger.o tests/test_advanced_sorting.c
-	@mkdir -p $(TEST_DIR)
+	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 
 TEST_BINS = test_circ_queue test_bst test_search test_hash_func \

@@ -1,4 +1,4 @@
-#include "data_structures.h"
+#include "trees.h"
 #include "safe_input.h"
 #include <stdio.h>
 #include <stdlib.h>

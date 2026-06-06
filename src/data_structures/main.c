@@ -6,6 +6,7 @@
 #include "safe_input.h"
 #include "searching_algorithms.h"
 #include "sorting_algorithms_n2.h"
+#include "error_correction_algorithms.h"
 #include "stack.h"
 #include "trees.h"
 #include <stdio.h>
@@ -33,8 +34,9 @@ int main()
             "click 6 for graph traversals (bfs / dfs / dijkstra / astar / greedy bfs / bellman ford) demo\n"
             "click 7 for hashing algorithms demo\n"
             "click 8 for trees demo\n"
+            "click 9 for error correction algorithms demo\n"
             "enter choice : ",
-            1, 8 // limits
+            1, 9 // limits
         );
 
         if (status == -111)
@@ -72,6 +74,9 @@ int main()
                 break;
             case 8:
                 trees_demo();
+                break;
+            case 9:
+                error_correction_algorithms_demo();
                 break;
         }
     }

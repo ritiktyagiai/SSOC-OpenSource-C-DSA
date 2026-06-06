@@ -14,7 +14,8 @@ CFLAGS = -Wall -Wextra -Werror -std=c11 -g \
 	-Isrc/graph_traversals \
 	-Isrc/hashing \
 	-Isrc/utils \
-	-Isrc/trees
+	-Isrc/trees \
+	-Isrc/error_correction_algorithms
 
 SRC_DIRS = \
 	src/data_structures \
@@ -25,7 +26,8 @@ SRC_DIRS = \
 	src/graph_traversals \
 	src/hashing \
 	src/utils \
-	src/trees
+	src/trees \
+	src/error_correction_algorithms
 
 SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))

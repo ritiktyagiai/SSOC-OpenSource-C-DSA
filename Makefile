@@ -49,9 +49,14 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)$(EXE)
 
-# Compile src/ files to object_files/ preserving subdirectories
+ifeq ($(OS),Windows_NT)
+MKDIR_P = if not exist "$(1)" mkdir "$(1)"
+else
+MKDIR_P = mkdir -p "$(1)"
+endif
+
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(dir $@)
+	@$(call MKDIR_P,$(dir $@))
 	$(CC) $(CFLAGS) -c $< -o $@
 
 fmt:

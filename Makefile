@@ -90,7 +90,7 @@ TEST_BINS = test_circ_queue test_bst test_search test_hash_func \
             test_priority_queue test_scll test_simple_queue \
             test_deque test_astar test_avl \
             test_greedy_bfs test_sorting_n2 test_advanced_sorting \
-            test_history_logger test_shell_sort test_trie
+            test_history_logger test_shell_sort test_trie test_btree
 
 		
 test: $(TEST_BINS)
@@ -205,6 +205,13 @@ test_trie: $(TEST_DIR)/test_trie$(EXE)
 	$(TEST_DIR)/test_trie$(EXE)
 
 $(TEST_DIR)/test_trie$(EXE): $(OBJ_DIR)/src/trees/trie.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_trie.c
+	@$(call MKDIR_P,$(TEST_DIR))
+	$(CC) $(CFLAGS) $^ -o $@
+
+test_btree: $(TEST_DIR)/test_btree$(EXE)
+	$(TEST_DIR)/test_btree$(EXE)
+
+$(TEST_DIR)/test_btree$(EXE): $(OBJ_DIR)/src/trees/btree.o $(OBJ_DIR)/src/utils/safe_input_int.o tests/test_btree.c
 	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 

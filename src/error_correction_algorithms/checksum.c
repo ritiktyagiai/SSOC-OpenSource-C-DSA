@@ -3,13 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 
-// longest binary string accepted from the user (plus room for the '\0'). a checksum
-// demo never needs more than a few hundred bits, so a fixed buffer keeps things simple.
-#define CHECKSUM_MAX_BITS 1024
-
-// prints the low `bits` bits of value, most-significant bit first. local helper used
-// only for displaying k-bit words/checksums in this demo.
-static void print_binary(int value, int bits)
+// prints the low `bits` bits of value, most-significant bit first. shared helper
+// used for displaying k-bit words/checksums in the sender and receiver demos.
+void checksum_print_binary(int value, int bits)
 {
     for (int i = bits - 1; i >= 0; i--)
     {
@@ -21,7 +17,7 @@ static void print_binary(int value, int bits)
 // convention used by the expression module (validate_infix_expr): returns 1 on a
 // valid non-empty binary string, 0 on EOF / invalid input (caller should re-prompt),
 // and INPUT_EXIT_SIGNAL when the user types 'X' to leave the demo.
-static int read_binary_string(char* buff, size_t size, const char* prompt)
+int checksum_read_binary(char* buff, size_t size, const char* prompt)
 {
     if (prompt)
     {
@@ -57,10 +53,66 @@ static int read_binary_string(char* buff, size_t size, const char* prompt)
     return 1;
 }
 
+// one's-complement (end-around carry) addition of a single k-bit word into the
+// running sum: any overflow above k bits is wrapped back into the low k bits,
+// e.g. for k=3: 111 + 001 = 1000 -> 000 + 1 = 001.
+int checksum_add(int sum, int word, int k)
+{
+    int mask = (1 << k) - 1;
+    sum += word;
+    while (sum > mask)
+    {
+        sum = (sum & mask) + (sum >> k);
+    }
+    return sum;
+}
+
+// splits the `len`-bit binary string `data` into k-bit blocks (padding the final
+// block with trailing 0s) and accumulates them with one's-complement addition,
+// printing each block and the running sum. returns the final k-bit folded sum.
+int checksum_block_sum(const char* data, int len, int k)
+{
+    // pad the length up to a whole number of k-bit blocks; the missing low-order
+    // bits of the last block are treated as 0 (we never read past `len`).
+    int padded_len = len;
+    while (padded_len % k != 0)
+    {
+        padded_len++;
+    }
+
+    printf("\ndata length = %d bit(s), block size k = %d, padded to %d bit(s) (%d block(s))\n", len,
+           k, padded_len, padded_len / k);
+
+    int sum = 0;
+    for (int i = 0; i < padded_len; i += k)
+    {
+        int word = 0;
+
+        // assemble the current block, padding with 0 once we pass the real data
+        for (int j = 0; j < k; j++)
+        {
+            word <<= 1;
+            if (i + j < len)
+            {
+                word |= (data[i + j] - '0');
+            }
+        }
+
+        sum = checksum_add(sum, word, k);
+
+        printf("block %d: ", (i / k) + 1);
+        checksum_print_binary(word, k);
+        printf("  (value %d)  running sum = ", word);
+        checksum_print_binary(sum, k);
+        printf("\n");
+    }
+    return sum;
+}
+
 // checksum (sender side): the data is split into k-bit blocks and summed using
 // one's-complement (end-around carry) addition; the checksum is the one's complement
 // of that running sum. this is the value the sender appends to the data before
-// transmitting it. the receiver-side verification is a separate follow-up.
+// transmitting it. the receiver-side verification lives in checksum_receiver.c.
 void checksum_demo(void)
 {
     while (1)
@@ -83,7 +135,7 @@ void checksum_demo(void)
         }
 
         char data[CHECKSUM_MAX_BITS + 1];
-        int data_status = read_binary_string(
+        int data_status = checksum_read_binary(
             data, sizeof(data), "enter the binary data (digits 0/1 only), or 'X' to exit:- ");
 
         if (data_status == INPUT_EXIT_SIGNAL)
@@ -97,58 +149,15 @@ void checksum_demo(void)
         }
 
         int len = (int)strlen(data);
-
-        // pad the length up to a whole number of k-bit blocks; the missing low-order
-        // bits of the last block are treated as 0 (we never write them into `data`).
-        int padded_len = len;
-        while (padded_len % k != 0)
-        {
-            padded_len++;
-        }
-
         int mask = (1 << k) - 1; // keeps only the low k bits
-        int sum = 0;
 
-        printf("\ndata length = %d bit(s), block size k = %d, padded to %d bit(s) (%d block(s))\n",
-               len, k, padded_len, padded_len / k);
-
-        // process one k-bit block at a time
-        for (int i = 0; i < padded_len; i += k)
-        {
-            int word = 0;
-
-            // assemble the current block, padding with 0 once we pass the real data
-            for (int j = 0; j < k; j++)
-            {
-                word <<= 1;
-                if (i + j < len)
-                {
-                    word |= (data[i + j] - '0');
-                }
-            }
-
-            sum += word;
-
-            // one's-complement (end-around carry) fold: wrap any overflow above k bits
-            // back into the low k bits, e.g. for k=3: 111 + 001 = 1000 -> 000 + 1 = 001
-            while (sum > mask)
-            {
-                sum = (sum & mask) + (sum >> k);
-            }
-
-            printf("block %d: ", (i / k) + 1);
-            print_binary(word, k);
-            printf("  (value %d)  running sum = ", word);
-            print_binary(sum, k);
-            printf("\n");
-        }
-
+        int sum = checksum_block_sum(data, len, k);
         int checksum = (~sum) & mask; // one's complement of the final sum, kept to k bits
 
         printf("\nfinal sum       = ");
-        print_binary(sum, k);
+        checksum_print_binary(sum, k);
         printf("\nchecksum (~sum) = ");
-        print_binary(checksum, k);
+        checksum_print_binary(checksum, k);
         printf("\n\nthe sender appends this checksum to the data before transmission.\n");
     }
 }

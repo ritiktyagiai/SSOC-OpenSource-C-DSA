@@ -14,7 +14,7 @@ void circular_queue_Demo(void)
 
     while (1)
     {
-        circular_queue rollnos = {0};
+        Queue rollnos = {0};
         int queue_capacity_value;
         int queue_capacity_status =
             safe_input_int(&queue_capacity_value,
@@ -105,7 +105,7 @@ void circular_queue_Demo(void)
     }
 }
 
-int init_circ_queue(int N, circular_queue* queue_ptr)
+int init_circ_queue(int N, Queue* queue_ptr)
 {
     if (N < 1)
         return 0;
@@ -118,7 +118,7 @@ int init_circ_queue(int N, circular_queue* queue_ptr)
     return 1;
 }
 
-void destroy_circ_queue(circular_queue* queue_ptr)
+void destroy_circ_queue(Queue* queue_ptr)
 {
     if (queue_ptr->arr == NULL)
         return;
@@ -129,7 +129,7 @@ void destroy_circ_queue(circular_queue* queue_ptr)
     queue_ptr->N = 0;
 }
 
-int enqueue(circular_queue* queue_ptr, int value)
+int enqueue(Queue* queue_ptr, int value)
 { // one slot is kept empty to differentiate between full and empty queue
     if (((queue_ptr->rear) + 1) % (queue_ptr->N) == queue_ptr->front)
         return -1;
@@ -138,7 +138,7 @@ int enqueue(circular_queue* queue_ptr, int value)
     return 1;
 }
 
-int dequeue(circular_queue* queue_ptr)
+int dequeue(Queue* queue_ptr)
 {
     if (queue_ptr->rear == queue_ptr->front)
         return -1;
@@ -147,7 +147,7 @@ int dequeue(circular_queue* queue_ptr)
     return queue_ptr->arr[front_value];
 }
 
-void display_circ_queue(circular_queue* queue_ptr)
+void display_circ_queue(Queue* queue_ptr)
 {
     int i = queue_ptr->front;
     while (i != queue_ptr->rear)

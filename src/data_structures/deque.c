@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int init_deque(int N, deque* dq)
+int init_deque(int N, Queue* dq)
 {
     if (N < 1)
         return 0;
@@ -16,7 +16,7 @@ int init_deque(int N, deque* dq)
     return 1;
 }
 
-void destroy_deque(deque* dq)
+void destroy_deque(Queue* dq)
 {
     if (dq->arr == NULL)
         return;
@@ -27,17 +27,17 @@ void destroy_deque(deque* dq)
     dq->N = 0;
 }
 
-bool deque_is_empty(const deque* dq)
+bool deque_is_empty(const Queue* dq)
 {
     return (dq->front == -1);
 }
 
-bool deque_is_full(const deque* dq)
+bool deque_is_full(const Queue* dq)
 {
     return ((dq->front == 0 && dq->rear == dq->N - 1) || (dq->front == dq->rear + 1));
 }
 
-int deque_insert_front(deque* dq, int value)
+int deque_insert_front(Queue* dq, int value)
 {
     if (deque_is_full(dq))
         return -1;
@@ -60,7 +60,7 @@ int deque_insert_front(deque* dq, int value)
     return 1;
 }
 
-int deque_insert_rear(deque* dq, int value)
+int deque_insert_rear(Queue* dq, int value)
 {
     if (deque_is_full(dq))
         return -1;
@@ -83,7 +83,7 @@ int deque_insert_rear(deque* dq, int value)
     return 1;
 }
 
-int deque_delete_front(deque* dq, int* val)
+int deque_delete_front(Queue* dq, int* val)
 {
     if (deque_is_empty(dq))
         return -1;
@@ -107,7 +107,7 @@ int deque_delete_front(deque* dq, int* val)
     return 1;
 }
 
-int deque_delete_rear(deque* dq, int* val)
+int deque_delete_rear(Queue* dq, int* val)
 {
     if (deque_is_empty(dq))
         return -1;
@@ -131,21 +131,21 @@ int deque_delete_rear(deque* dq, int* val)
     return 1;
 }
 
-int deque_get_front(const deque* dq)
+int deque_get_front(const Queue* dq)
 {
     if (deque_is_empty(dq))
         return -1;
     return dq->arr[dq->front];
 }
 
-int deque_get_rear(const deque* dq)
+int deque_get_rear(const Queue* dq)
 {
     if (deque_is_empty(dq))
         return -1;
     return dq->arr[dq->rear];
 }
 
-void display_deque(const deque* dq)
+void display_deque(const Queue* dq)
 {
     if (deque_is_empty(dq))
     {
@@ -169,7 +169,7 @@ void deque_demo(void)
 {
     while (1)
     {
-        deque dq;
+        Queue dq;
         int capacity;
         int status = safe_input_int(&capacity,
                                     "\n\nenter capacity number (N) of deque (between 1 and 100), "

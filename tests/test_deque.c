@@ -4,7 +4,7 @@
 
 void test_deque_init()
 {
-    deque dq;
+    Queue dq;
     assert(init_deque(5, &dq) == 1);
     assert(dq.N == 5);
     assert(dq.front == -1);
@@ -18,7 +18,7 @@ void test_deque_init()
 
 void test_deque_basic_ops()
 {
-    deque dq;
+    Queue dq;
     init_deque(5, &dq);
 
     assert(deque_insert_rear(&dq, 10) == 1);
@@ -44,7 +44,7 @@ void test_deque_basic_ops()
 
 void test_deque_underflow()
 {
-    deque dq;
+    Queue dq;
     init_deque(5, &dq);
 
     int val;
@@ -59,7 +59,7 @@ void test_deque_underflow()
 
 void test_deque_overflow()
 {
-    deque dq;
+    Queue dq;
     init_deque(3, &dq);
 
     assert(deque_insert_rear(&dq, 1) == 1);
@@ -76,7 +76,7 @@ void test_deque_overflow()
 
 void test_deque_wraparound()
 {
-    deque dq;
+    Queue dq;
     init_deque(3, &dq);
 
     int val;

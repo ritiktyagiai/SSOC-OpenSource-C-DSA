@@ -4,7 +4,7 @@
 
 void test_init()
 {
-    circular_queue q;
+    Queue q;
     assert(init_circ_queue(5, &q) == 1);
     assert(q.N == 5);
     assert(q.front == 0);
@@ -16,7 +16,7 @@ void test_init()
 
 void test_basic_enqueue_dequeue()
 {
-    circular_queue q;
+    Queue q;
     init_circ_queue(5, &q);
 
     assert(enqueue(&q, 30) == 1);
@@ -32,7 +32,7 @@ void test_basic_enqueue_dequeue()
 
 void test_underflow()
 {
-    circular_queue q;
+    Queue q;
     init_circ_queue(5, &q);
 
     assert(dequeue(&q) == -1);
@@ -44,7 +44,7 @@ void test_underflow()
 
 void test_overflow()
 {
-    circular_queue q;
+    Queue q;
     init_circ_queue(4, &q);
 
     assert(enqueue(&q, 1) == 1);
@@ -60,7 +60,7 @@ void test_overflow()
 
 void test_wraparound()
 {
-    circular_queue q;
+    Queue q;
     init_circ_queue(4, &q);
 
     enqueue(&q, 1);

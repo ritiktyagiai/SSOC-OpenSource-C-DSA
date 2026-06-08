@@ -20,7 +20,7 @@ void bfs(Graph* graph, int start)
         return;
     }
 
-    circular_queue nodes;
+    Queue nodes;
 
     if (!init_circ_queue(size + 1, &nodes))
     {
@@ -347,7 +347,7 @@ void topological_sort_kahn(Graph* graph)
     }
 
     /* Step 2: Enqueue all vertices with in-degree 0 */
-    circular_queue q;
+    Queue q;
 
     if (!init_circ_queue(size + 1, &q))
     {

@@ -16,9 +16,10 @@ void error_correction_algorithms_demo(void)
             "\nEnter 2 for checksum (receiver)"
             "\nEnter 3 for CRC"
             "\nEnter 4 for LRC"
-            "\nEnter 5 for VRC"
-            "\nEnter 6 for VRC Receiver"
-            "\nEnter -1 to exit: ", 1, 6);
+            "\nEnter 5 for LRC Receiver"
+            "\nEnter 6 for VRC"
+            "\nEnter 7 for VRC Receiver"
+            "\nEnter -1 to exit: ", 1, 7);
 
         if (ECA_status == INPUT_EXIT_SIGNAL)
         {
@@ -51,10 +52,14 @@ void error_correction_algorithms_demo(void)
                 break;
 
             case 5:
+                lrc_receiver_demo();
+                break;
+                
+            case 6:
                 vrc_demo();
                 break;
 
-            case 6:
+            case 7:
                 vrc_receiver_demo();
                 break;
 

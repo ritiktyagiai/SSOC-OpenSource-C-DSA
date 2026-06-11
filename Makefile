@@ -94,11 +94,24 @@ TEST_BINS = test_circ_queue test_bst test_search test_hash_func \
             test_priority_queue test_scll test_simple_queue \
             test_deque test_astar test_avl \
             test_greedy_bfs test_sorting_n2 test_advanced_sorting \
-            test_history_logger test_shell_sort test_trie test_btree test_bplus_tree test_parity_bit
+            test_history_logger test_shell_sort test_trie test_btree test_bplus_tree test_parity_bit \
+            test_prim test_kruskal
 
-		
 test: $(TEST_BINS)
 
+test_kruskal: $(TEST_DIR)/test_kruskal$(EXE)
+	$(TEST_DIR)/test_kruskal$(EXE)
+
+$(TEST_DIR)/test_kruskal$(EXE): $(filter-out $(OBJ_DIR)/src/data_structures/main.o, $(OBJS)) tests/test_kruskal.c
+	@$(call MKDIR_P,$(TEST_DIR))
+	$(CC) $(CFLAGS) $^ -o $@
+
+test_prim: $(TEST_DIR)/test_prim$(EXE)
+	$(TEST_DIR)/test_prim$(EXE)
+
+$(TEST_DIR)/test_prim$(EXE): $(filter-out $(OBJ_DIR)/src/data_structures/main.o, $(OBJS)) tests/test_prim.c
+	@$(call MKDIR_P,$(TEST_DIR))
+	$(CC) $(CFLAGS) $^ -o $@
 
 test_tbt: $(TEST_DIR)/test_tbt$(EXE)
 	$(TEST_DIR)/test_tbt$(EXE)
@@ -251,23 +264,6 @@ test_advanced_sorting: $(TEST_DIR)/test_advanced_sorting$(EXE)
 	$(TEST_DIR)/test_advanced_sorting$(EXE)
 
 $(TEST_DIR)/test_advanced_sorting$(EXE): $(OBJ_DIR)/src/advanced_sorting_algorithms/quick_sort.o $(OBJ_DIR)/src/advanced_sorting_algorithms/merge_sort.o $(OBJ_DIR)/src/advanced_sorting_algorithms/heap_sort.o $(OBJ_DIR)/src/advanced_sorting_algorithms/radix_sort.o $(OBJ_DIR)/src/data_structures/priority_queue.o $(OBJ_DIR)/src/data_structures/array.o $(OBJ_DIR)/src/utils/safe_input_int.o $(OBJ_DIR)/src/utils/history_logger.o tests/test_advanced_sorting.c
-	@$(call MKDIR_P,$(TEST_DIR))
-	$(CC) $(CFLAGS) $^ -o $@
-
-TEST_BINS = test_circ_queue test_bst test_search test_hash_func \
-            test_sll test_dll test_array test_stack test_tbt \
-            test_priority_queue test_scll test_simple_queue \
-            test_deque test_astar test_avl \
-            test_greedy_bfs test_sorting_n2 test_advanced_sorting \
-            test_history_logger test_shell_sort test_trie test_btree \
-            test_bplus_tree test_parity_bit test_prim
-
-test: $(TEST_BINS)
-
-test_prim: $(TEST_DIR)/test_prim$(EXE)
-	$(TEST_DIR)/test_prim$(EXE)
-
-$(TEST_DIR)/test_prim$(EXE): $(filter-out $(OBJ_DIR)/src/data_structures/main.o, $(OBJS)) tests/test_prim.c
 	@$(call MKDIR_P,$(TEST_DIR))
 	$(CC) $(CFLAGS) $^ -o $@
 

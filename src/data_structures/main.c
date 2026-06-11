@@ -37,7 +37,7 @@ int main()
             "click 7 for hashing algorithms demo\n"
             "click 8 for trees demo\n"
             "click 9 for error correction algorithms demo\n"
-            "click 10 for job scheduling (FCFS / SJF / priority / round robin) demo\n"
+            "click 10 for job scheduling (FCFS / SJF / priority / round robin / SRTF) demo\n"
             "enter choice : ",
             1, 10 // limits
         );

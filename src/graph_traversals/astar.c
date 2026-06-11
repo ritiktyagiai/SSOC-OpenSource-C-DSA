@@ -37,7 +37,7 @@ int astar_solve(weightedGraph* graph, int start, int dest, int h[], int parent[]
     // "distance" field, which here carries the f-score (f = g + h). Duplicate
     // entries are handled lazily via the visited[] check on pop.
     PQ_graph pq;
-    pq.size = 0;
+    init_pq_graph(&pq, 10);
 
     dist[start] = 0;
     fScore[start] = h[start];
@@ -99,7 +99,7 @@ int astar_solve(weightedGraph* graph, int start, int dest, int h[], int parent[]
         }
     }
 
-    free(visited);
+    free_pq_graph(&pq);
     free(dist);
     free(fScore);
     return result;

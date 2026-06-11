@@ -81,4 +81,8 @@ void greedy_best_first_search_demo(void);
 // ------------------For Bellman-ford-----------------------
 void bellman_ford_demo(void);
 
+// ------------------For MST (Kruskal's)-----------------------
+int kruskal_mst(weightedGraph* graph);
+void kruskal_demo(void);
+
 #endif
